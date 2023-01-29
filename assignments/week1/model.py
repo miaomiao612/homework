@@ -6,28 +6,29 @@ class LinearRegression:
     """
     linear regression using Normal Equation
     """
+
     w: np.ndarray
     b: float
 
     def __init__(self):
-        self.w=0
-        self.b=0
-    def fit(self, X:np.ndarray, y:np.ndarray):
+        self.w = 0
+        self.b = 0
+
+    def fit(self, X: np.ndarray, y: np.ndarray):
         """
         fit the model with following inputs
         """
-        cols=X.shape[1]
-        X=np.array(X).reshape(-1,cols)
-        y=np.array(y).reshape(-1,1)
+        cols = X.shape[1]
+        X = np.array(X).reshape(-1, cols)
+        y = np.array(y).reshape(-1, 1)
         self.w = np.dot((np.linalg.inv(np.dot(X.T, X))), np.dot(X.T, y))
 
     def predict(self, X):
         """
-        predict
+        predict.
         """
-        X=np.array(X).reshape(-1,1)
+        X = np.array(X).reshape(-1, 1)
         return np.dot(X, self.w) + self.b
-
 
 
 class GradientDescentLinearRegression(LinearRegression):
@@ -61,4 +62,3 @@ class GradientDescentLinearRegression(LinearRegression):
 
         """
         return np.dot(X, self.w) + self.b
-
