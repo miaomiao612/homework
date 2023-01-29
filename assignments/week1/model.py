@@ -1,35 +1,33 @@
-"""
-Author: miaomiao612 dddoctorr612@gmail.com
-Date: 2023-01-23 04:30:43
-LastEditors: miaomiao612 dddoctorr612@gmail.com
-LastEditTime: 2023-01-30 02:42:47
-FilePath: \week1\model.py
-Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
-"""
+
 import numpy as np
-import encodings
 
 
 class LinearRegression:
-
+    """
+    linear regression using Normal Equation
+    """
     w: np.ndarray
     b: float
 
     def __init__(self):
-        raise NotImplementedError()
-
-    def fit(self, X, y):
-        # raise NotImplementedError()
-        self.X = X
-        self.y = y
-        n_features = X.shape[1]
-        self.w = np.zeros(shape=(n_features, 1))
-        self.b = 0.0
+        self.w=0
+        self.b=0
+    def fit(self, X:np.ndarray, y:np.ndarray):
+        """
+        fit the model with following inputs
+        """
+        cols=X.shape[1]
+        X=np.array(X).reshape(-1,cols)
+        y=np.array(y).reshape(-1,1)
+        self.w = np.dot((np.linalg.inv(np.dot(X.T, X))), np.dot(X.T, y))
 
     def predict(self, X):
-        # raise NotImplementedError()
-        y_pred = np.dot(X, self.w) + self.b
-        return y_pred
+        """
+        predict
+        """
+        X=np.array(X).reshape(-1,1)
+        return np.dot(X, self.w) + self.b
+
 
 
 class GradientDescentLinearRegression(LinearRegression):
@@ -40,14 +38,14 @@ class GradientDescentLinearRegression(LinearRegression):
     def fit(
         self, X: np.ndarray, y: np.ndarray, lr: float = 0.01, epochs: int = 1000
     ) -> None:
-        # raise NotImplementedError()
-        n_samples, n_features = X.shape
-        self.w = np.zeros(shape=(n_features, 1))
-        self.b = 0.0
+        """
+        fit the model with following inputs
+        """
+        size = X.shape[0]
         for _ in range(epochs):
             y_pred = np.dot(X, self.w) + self.b
-            dw = (1 / n_samples) * np.dot(X.T, (y_pred - y))
-            db = (1 / n_samples) * np.sum(y_pred - y)
+            dw = (2 / size) * np.dot(X.T, (y_pred - y))
+            db = (1 / size) * np.sum(y_pred - y)
             self.w -= lr * dw
             self.b -= lr * db
 
@@ -62,4 +60,5 @@ class GradientDescentLinearRegression(LinearRegression):
             np.ndarray: The predicted output.
 
         """
-        # raise NotImplementedError()
+        return np.dot(X, self.w) + self.b
+
