@@ -21,7 +21,7 @@ class LinearRegression:
         X = np.array(X).reshape(-1, cols)
         y = np.array(y).reshape(-1, 1)
         self.w = np.dot((np.linalg.inv(np.dot(X.T, X))), np.dot(X.T, y))
-        self.w = self.w_[-1]
+        self.w = self.w[-1]
 
     def predict(self, X: np.ndarray) -> np.ndarray:
         """
