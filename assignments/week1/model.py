@@ -18,17 +18,16 @@ class LinearRegression:
         fit the model with following inputs
         """
         cols = X.shape[1]
-        X = np.array(X).reshape(-1, cols)
-        y = np.array(y).reshape(-1, 1)
+        X = X.reshape(-1, cols)
+        y = y.reshape(-1, 1)
         self.w = np.dot((np.linalg.inv(np.dot(X.T, X))), np.dot(X.T, y))
-        self.w = self.w[-1]
 
     def predict(self, X: np.ndarray) -> np.ndarray:
         """
         predict.
         """
         cols = X.shape[1]
-        X = np.array(X).reshape(-1, cols)
+        X = X.reshape(-1, cols)
         return np.dot(X, self.w) + self.b
 
 
@@ -43,13 +42,15 @@ class GradientDescentLinearRegression(LinearRegression):
         """
         fit the model with following inputs
         """
+        self.w = 0
+        self.b = 0
         size = X.shape[0]
-        for _ in range(epochs):
-            y_pred = np.dot(X, self.w) + self.b
-            dw = (2 / size) * np.dot(X.T, (y_pred - y))
-            db = (1 / size) * np.sum(y_pred - y)
-            self.w -= lr * dw
-            self.b -= lr * db
+        for i in range(epochs):
+            y_pred = self.w * X + self.b
+            dw = (-2 / size) * sum(X * (y - y_pred))
+            db = (-1 / size) * sum(y - y_pred)
+            self.w = self.w - lr * dw
+            self.b = self.b - lr * db
 
     def predict(self, X: np.ndarray) -> np.ndarray:
         """
