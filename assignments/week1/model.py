@@ -1,4 +1,3 @@
-
 import numpy as np
 
 
@@ -14,7 +13,7 @@ class LinearRegression:
         self.w = 0
         self.b = 0
 
-    def fit(self, X: np.ndarray, y: np.ndarray)->None:
+    def fit(self, X: np.ndarray, y: np.ndarray) -> None:
         """
         fit the model with following inputs
         """
@@ -23,7 +22,7 @@ class LinearRegression:
         y = np.array(y).reshape(-1, 1)
         self.w = np.dot((np.linalg.inv(np.dot(X.T, X))), np.dot(X.T, y))
 
-    def predict(self, X: np.ndarray)-> np.ndarray:
+    def predict(self, X: np.ndarray) -> np.ndarray:
         """
         predict.
         """
