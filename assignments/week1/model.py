@@ -1,3 +1,4 @@
+
 import numpy as np
 
 
@@ -20,7 +21,7 @@ class LinearRegression:
         cols = X.shape[1]
         X = np.array(X).reshape(-1, cols)
         y = np.array(y).reshape(-1, 1)
-        self.w = np.dot((np.linalg.inv(np.dot(X.T, X))), np.dot(X.T, y))
+        self.w = np.dot((np.linalg.inv(np.dot(X.T, X))), np.dot(X.T, y))#use normal equation to calculate w
 
     def predict(self, X):
         """
