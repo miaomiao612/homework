@@ -14,20 +14,21 @@ class LinearRegression:
         self.w = 0
         self.b = 0
 
-    def fit(self, X: np.ndarray, y: np.ndarray):
+    def fit(self, X: np.ndarray, y: np.ndarray)->None:
         """
         fit the model with following inputs
         """
         cols = X.shape[1]
         X = np.array(X).reshape(-1, cols)
         y = np.array(y).reshape(-1, 1)
-        self.w = np.dot((np.linalg.inv(np.dot(X.T, X))), np.dot(X.T, y))#use normal equation to calculate w
+        self.w = np.dot((np.linalg.inv(np.dot(X.T, X))), np.dot(X.T, y))
 
-    def predict(self, X):
+    def predict(self, X: np.ndarray)-> np.ndarray:
         """
         predict.
         """
-        X = np.array(X).reshape(-1, 1)
+        cols = X.shape[1]
+        X = np.array(X).reshape(-1, cols)
         return np.dot(X, self.w) + self.b
 
 
