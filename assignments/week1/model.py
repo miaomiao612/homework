@@ -20,7 +20,7 @@ class LinearRegression:
         cols = X.shape[1]
         X = X.reshape(-1, cols)
         y = y.reshape(-1, 1)
-        self.w = np.dot((np.linalg.inv(np.dot(X.T, X))), np.dot(X.T, y))
+        self.w = (np.linalg.inv(X.T @ X)) @ X.T @ y
 
     def predict(self, X: np.ndarray) -> np.ndarray:
         """
@@ -49,8 +49,8 @@ class GradientDescentLinearRegression(LinearRegression):
             y_pred = self.w * X + self.b
             dw = (-2 / size) * sum(X * (y - y_pred))
             db = (-1 / size) * sum(y - y_pred)
-            self.w = self.w - lr * dw
-            self.b = self.b - lr * db
+            self.w -= lr * dw
+            self.b -= lr * db
 
     def predict(self, X: np.ndarray) -> np.ndarray:
         """
