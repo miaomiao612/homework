@@ -18,7 +18,7 @@ class LinearRegression:
         fit the model with following inputs
         """
         cols = X.shape[1]
-        X = X.reshape(-1, cols)
+        X = np.append(X,np.ones((X.shape[0],1)),axis=1)
         y = y.reshape(-1, 1)
         self.w = (np.linalg.inv(X.T @ X)) @ X.T @ y
 
