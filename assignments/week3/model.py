@@ -9,6 +9,7 @@ Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查�
 
 from typing import Callable
 import torch
+from torch import nn
 
 
 class MLP(torch.nn.Module):
@@ -42,7 +43,7 @@ class MLP(torch.nn.Module):
         torch.nn.init.ones_(self.output_layer.weight)
         torch.nn.init.ones_(self.output_layer.bias)
 
-    def forward(self, x):
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
         for i in range(self.hidden_count):
             x = self.activation(self.hidden_layers[i](x))
         x = self.output_layer(x)
