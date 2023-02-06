@@ -1,8 +1,16 @@
-import torch
+"""
+Author: miaomiao612 dddoctorr612@gmail.com
+Date: 2023-02-01 03:57:53
+LastEditors: miaomiao612 dddoctorr612@gmail.com
+LastEditTime: 2023-02-06 12:39:30
+FilePath: \week3\model.py
+Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+"""
 from typing import Callable
+import torch
 
 
-class MLP:
+class MLP(torch.nn.Module):
     def __init__(
         self,
         input_size: int,
@@ -22,16 +30,19 @@ class MLP:
             activation: The activation function to use in the hidden layer.
             initializer: The initializer to use for the weights.
         """
-        ...
+        super(MLP, self).__init__()
+        self.hidden_count = hidden_count
+        self.hidden_layers = torch.nn.ModuleList()
+        for i in range(hidden_count):
+            self.hidden_layers.append(torch.nn.Linear(input_size, hidden_size))
+            input_size = hidden_size
+        self.output_layer = torch.nn.Linear(hidden_size, num_classes)
+        self.activation = activation()
+        torch.nn.init.ones_(self.output_layer.weight)
+        torch.nn.init.ones_(self.output_layer.bias)
 
     def forward(self, x):
-        """
-        Forward pass of the network.
-
-        Arguments:
-            x: The input data.
-
-        Returns:
-            The output of the network.
-        """
-        ...
+        for i in range(self.hidden_count):
+            x = self.activation(self.hidden_layers[i](x))
+        x = self.output_layer(x)
+        return x
