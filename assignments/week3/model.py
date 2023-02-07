@@ -3,6 +3,10 @@ import torch
 
 
 class MLP(torch.nn.Module):
+    """
+    MLP
+    """
+
     def __init__(
         self,
         input_size: int,
