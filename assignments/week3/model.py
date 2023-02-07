@@ -1,6 +1,5 @@
 from typing import Callable
 import torch
-from torch import nn
 
 
 class MLP(torch.nn.Module):
@@ -35,6 +34,13 @@ class MLP(torch.nn.Module):
         torch.nn.init.ones_(self.output_layer.bias)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """
+        Forward pass of the network.
+        Arguments:
+            x: The input data.
+        Returns:
+            The output of the network.
+        """
         for i in range(self.hidden_count):
             x = self.activation(self.hidden_layers[i](x))
         x = self.output_layer(x)
