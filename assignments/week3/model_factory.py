@@ -20,6 +20,6 @@ def create_model(input_dim: int, output_dim: int) -> MLP:
         400,
         output_dim,
         1,
-        torch.nn.ReLU,
-        torch.nn.init.kaiming_uniform_,
+        torch.nn.LeakyReLU,
+        torch.nn.init.xavier_uniform_,
     )
