@@ -97,6 +97,9 @@ def train(
             optimizer.step()
             # Update the learning rate:
             learning_rate_scheduler.step()
+
+        print(("last epoch   ", learning_rate_scheduler.last_epoch))
+        print(("lst lr   ", learning_rate_scheduler._last_lr))
         # Set the model to evaluation mode:
         model.eval()
         # Compute the accuracy on the test data:
