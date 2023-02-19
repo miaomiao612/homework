@@ -3,13 +3,17 @@ import warnings
 from torch.optim.lr_scheduler import _LRScheduler
 import types
 
+
 class CustomLRScheduler(_LRScheduler):
     """_summary_
 
     Args:
         _LRScheduler (_type_): _description_
     """
-    def __init__(self, optimizer, step_size=783 * 4, gamma=0.7, last_epoch=-1, verbose=False):
+
+    def __init__(
+        self, optimizer, step_size=783 * 4, gamma=0.7, last_epoch=-1, verbose=False
+    ):
         """_summary_
 
         Args:
@@ -24,7 +28,7 @@ class CustomLRScheduler(_LRScheduler):
         self.gamma = gamma
         super(CustomLRScheduler, self).__init__(optimizer, last_epoch, verbose)
 
-    def get_lr(self)->List[float]:
+    def get_lr(self) -> List[float]:
         """_summary_
 
         Returns:
@@ -32,16 +36,17 @@ class CustomLRScheduler(_LRScheduler):
         """
 
         if not self._get_lr_called_within_step:
-            warnings.warn("To get the last learning rate computed by the scheduler, "
-                        "please use `get_last_lr()`.", UserWarning)
+            warnings.warn(
+                "To get the last learning rate computed by the scheduler, "
+                "please use `get_last_lr()`.",
+                UserWarning,
+            )
 
         if (self.last_epoch == 0) or (self.last_epoch % self.step_size != 0):
-            return [group['lr'] for group in self.optimizer.param_groups]
+            return [group["lr"] for group in self.optimizer.param_groups]
         else:
             print("Values")
-            print([group['lr'] * self.gamma
-                for group in self.optimizer.param_groups])
+            print([group["lr"] * self.gamma for group in self.optimizer.param_groups])
             print(self.gamma)
             print()
-            return [group['lr'] * self.gamma
-                for group in self.optimizer.param_groups]
+            return [group["lr"] * self.gamma for group in self.optimizer.param_groups]
