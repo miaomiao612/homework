@@ -11,7 +11,7 @@ class CustomLRScheduler(_LRScheduler):
     """
 
     def __init__(
-        self, optimizer, step_size=783 * 4, gamma=0.7, last_epoch=-1, verbose=False
+        self, optimizer, step_size=782 * 5, gamma=0.6, last_epoch=-1, verbose=False
     ):
         """_summary_
 
