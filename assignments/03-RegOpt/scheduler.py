@@ -1,7 +1,6 @@
 from typing import List
 import warnings
 from torch.optim.lr_scheduler import _LRScheduler
-import types
 
 
 class CustomLRScheduler(_LRScheduler):
