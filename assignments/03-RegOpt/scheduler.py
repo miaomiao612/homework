@@ -44,8 +44,4 @@ class CustomLRScheduler(_LRScheduler):
         if (self.last_epoch == 0) or (self.last_epoch % self.step_size != 0):
             return [group["lr"] for group in self.optimizer.param_groups]
         else:
-            print("Values")
-            print([group["lr"] * self.gamma for group in self.optimizer.param_groups])
-            print(self.gamma)
-            print()
             return [group["lr"] * self.gamma for group in self.optimizer.param_groups]
